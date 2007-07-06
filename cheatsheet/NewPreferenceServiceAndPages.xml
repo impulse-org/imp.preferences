@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet title="Creating a Preference Service and Page for a new SAFARI IDE">
+<intro>
+<description>
+SAFARI provides a preference service that is based on the Eclipse Preferences Service
+(org.eclipse.core.internal.preferences.PreferencesService, since 3.0).
+The SAFARI model of preferences is basically that of the Preferences Service.
+This is a layered model, with four intrinsicly supported layers.
+From most general to most specific, these are:<br/>
+   1. Default<br/>
+   2. Configuration (i.e., workspace configuration)<br/>
+   3. Instance (i.e., workspace instance)<br/>
+   4. Project<br/>
+Preferences set at a given level are scoped accordingly, values set at lower levels override values set at higher levels,
+with default values applying anywhere that a more specific value is lacking.
+<br/><br/>
+
+SAFARI initially supports a a style of preference page with four tabs, one for each of the four preference levels.
+The page and the four tabs (with certain annotations and controls) are generated automatically by the SAFARI New Preference Page wizard.
+As an alternative, SAFARI also supports the generation of a simple, untabbed preference page.
+<br/><br/>
+
+This step can be performed at any time after the language is described.
+In particular, this step can be performed before any other step in which the
+implementation might make use of the preferences service.
+<br/><br/>
+
+
+</description>
+</intro>
+
+<item title="Create a preference service and page">
+<action pluginId="com.ibm.watson.safari.cheatsheets"
+        class="com.ibm.watson.safari.cheatsheets.actions.NewPreferenceServiceAndPagesAction"/>
+<description>
+
+To invoke the New Preference Page wizard, select<br/><br/>
+"File" -> "New" -> "IDE Language Support" -> "Core Services" -> "Preference Page"
+<br/><br/>
+
+In the wizard:<br/><br/>
+    * As usual, assure that the names of the project and language are entered correctly.<br/><br/>
+    * As a language may have multiple preference pages, you must specify a unique Eclispe identifier
+    and usre-friendly name for a particular page<br/><br/>
+    * As usual, edit the package and class name for the implementation to be what you want<br/><br/>
+    * The optional "category" field is used to designate an existing preference page,
+    if any, under which the new page will be listed in the Eclipse preferences menu (Window -> Preferences ...).
+    To designate the "parent" page, you must provide its Eclipse id.<br/><br/>
+    * Finally, if you do not wish to generate a full SAFARI preference page, you can generate a simple (untabbed)
+    page with some text by filling that text into the "alternative" field.
+    (If this field is left empty, then the usual tabbed SAFARI preference page will be generated).<br/><br/>
+    * Hit "Finish" when done.<br/><br/>
+The SAFARI preference pages are generated without any preference fields (or without any that are likely to be relevant to your language).
+Fields for specific preferences must be added to complete the implementation of a preference page.
+<br/><br/>
+
+Additional information about the SAFARI preferences model and service, and about implementing SAFARI preference pages and fields,
+can be found in "Preferences in SAFARI IDEs" (http://www.research.ibm.com/safari, and then navigate through the Documentation link).	
+
+</description>
+</item>
+
+
+</cheatsheet>

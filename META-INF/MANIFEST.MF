@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Level2 Plug-in
+Bundle-SymbolicName: org.eclipse.uide.level2; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: org.eclipse.uide.preferences.PreferencesPlugin
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.uide,
+ org.eclipse.uide.prefspecs,
+ org.eclipse.uide.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.pde,
+ org.eclipse.ui.ide,
+ org.eclipse.ui.cheatsheets
+Eclipse-AutoStart: true
+Export-Package: org.eclipse.uide.preferences,
+ org.eclipse.uide.preferences.wizards

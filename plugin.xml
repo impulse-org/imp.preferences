@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.newWizards">
+
+      <wizard
+            category="org.eclipse.uide.wizards/org.eclipse.uide.wizards.core"
+            class="org.eclipse.uide.wizards.NewPreferencesDialogWizard"
+            icon="icons/sample.gif"
+            id="org.eclipse.uide.wizards.NewPreferencesDialog"
+            name="New Preferences Support"/>
+   </extension>
+   <extension
+         id="org.eclipse.uide.preferences.cheatsheet"
+         name="SAFARI Preferences Cheat Sheet"
+         point="org.eclipse.ui.cheatsheets.cheatSheetContent">
+      <category
+         name="SAFARI"
+         id="com.ibm.safari">
+      </category>
+	  <cheatsheet
+         name="J) New Preference Service and Pages"
+         category="com.ibm.safari"
+         id="org.eclipse.uide.preferences.cheatsheet.preferenceServiceAndPages"
+         contentFile="cheatsheet/NewPreferenceServiceAndPages.xml">
+         <description>
+           Creating a preference service and page for your new SAFARI IDE
+         </description>
+      </cheatsheet>
+   </extension>
+
+</plugin>
