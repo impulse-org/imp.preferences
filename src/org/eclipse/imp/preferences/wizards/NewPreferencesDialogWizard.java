@@ -229,6 +229,7 @@ public class NewPreferencesDialogWizard extends CodeServiceWizard {
 									{ "extension.page:category", prefCategory },
 								},
 								true,
+								getPluginDependencies(),
 								monitor);
 						}
 				    }	
