@@ -13,7 +13,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  org.eclipse.pde,
  org.eclipse.ui.ide,
- org.eclipse.ui.cheatsheets
+ org.eclipse.ui.cheatsheets,
+ org.eclipse.pde.core
 Eclipse-AutoStart: true
 Export-Package: org.eclipse.uide.preferences,
  org.eclipse.uide.preferences.cheatsheet,
