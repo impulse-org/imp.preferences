@@ -5,11 +5,11 @@
          point="org.eclipse.ui.newWizards">
 
       <wizard
-            category="org.eclipse.uide.wizards/org.eclipse.uide.wizards.core"
-            class="org.eclipse.uide.wizards.NewPreferencesDialogWizard"
+            category="org.eclipse.uide.wizards/org.eclipse.uide.wizards.create"
+            class="org.eclipse.uide.preferences.wizards.NewPreferencesDialogWizard"
             icon="icons/sample.gif"
-            id="org.eclipse.uide.wizards.NewPreferencesDialog"
-            name="New Preferences Support"/>
+            id="org.eclipse.uide.wizards.PreferencesDialog"
+            name="Preferences Support"/>
    </extension>
    <extension
          id="org.eclipse.uide.preferences.cheatsheet"
