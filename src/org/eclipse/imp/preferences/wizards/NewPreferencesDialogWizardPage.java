@@ -1,20 +1,20 @@
-package org.eclipse.uide.preferences.wizards;
+package org.eclipse.imp.preferences.wizards;
 
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.imp.core.ErrorHandler;
+import org.eclipse.imp.runtime.RuntimePlugin;
+import org.eclipse.imp.wizards.ExtensionPointEnabler;
+import org.eclipse.imp.wizards.ExtensionPointWizard;
+import org.eclipse.imp.wizards.ExtensionPointWizardPage;
+import org.eclipse.imp.wizards.WizardPageField;
 import org.eclipse.pde.core.plugin.IPluginElement;
 import org.eclipse.pde.core.plugin.IPluginExtension;
 import org.eclipse.pde.core.plugin.IPluginModel;
 import org.eclipse.pde.core.plugin.IPluginObject;
 import org.eclipse.pde.internal.core.schema.Schema;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.uide.core.ErrorHandler;
-import org.eclipse.uide.runtime.RuntimePlugin;
-import org.eclipse.uide.wizards.ExtensionPointEnabler;
-import org.eclipse.uide.wizards.ExtensionPointWizard;
-import org.eclipse.uide.wizards.ExtensionPointWizardPage;
-import org.eclipse.uide.wizards.WizardPageField;
 
 /**
 

@@ -1,15 +1,15 @@
 /*
  * Created on 28 Feb 2007
  */
-package org.eclipse.uide.preferences.cheatsheet;
+package org.eclipse.imp.preferences.cheatsheet;
 
+import org.eclipse.imp.preferences.wizards.NewPreferencesDialogWizard;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.cheatsheets.ICheatSheetAction;
 import org.eclipse.ui.cheatsheets.ICheatSheetManager;
-import org.eclipse.uide.preferences.wizards.NewPreferencesDialogWizard;
 
 public class NewPreferenceServiceAndPagesAction extends Action implements ICheatSheetAction {
     public NewPreferenceServiceAndPagesAction() {

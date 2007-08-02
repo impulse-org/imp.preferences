@@ -1,9 +1,8 @@
 /**
  * 
  */
-package org.eclipse.uide.preferences.wizards;
+package org.eclipse.imp.preferences.wizards;
 
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
@@ -17,25 +16,23 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
+import org.eclipse.imp.core.ErrorHandler;
+import org.eclipse.imp.model.ISourceProject;
+import org.eclipse.imp.model.ModelFactory;
+import org.eclipse.imp.model.ModelFactory.ModelException;
+import org.eclipse.imp.preferences.PreferencesFactory;
+import org.eclipse.imp.preferences.pageinfo.PreferencesPageInfo;
+import org.eclipse.imp.prefspecs.PrefspecsPlugin;
+import org.eclipse.imp.prefspecs.builders.PrefspecsBuilder;
+import org.eclipse.imp.prefspecs.compiler.PrefspecsCompiler;
+import org.eclipse.imp.wizards.CodeServiceWizard;
+import org.eclipse.imp.wizards.ExtensionPointEnabler;
+import org.eclipse.imp.wizards.ExtensionPointWizardPage;
+import org.eclipse.imp.wizards.WizardPageField;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.uide.core.ErrorHandler;
-import org.eclipse.uide.model.ISourceProject;
-import org.eclipse.uide.model.ModelFactory;
-import org.eclipse.uide.model.ModelFactory.ModelException;
-import org.eclipse.uide.preferences.PreferencesFactory;
-import org.eclipse.uide.preferences.pageinfo.PreferencesPageInfo;
-import org.eclipse.uide.wizards.CodeServiceWizard;
-import org.eclipse.uide.wizards.ExtensionPointEnabler;
-import org.eclipse.uide.wizards.ExtensionPointWizardPage;
-import org.eclipse.uide.wizards.WizardPageField;
-
-import prefspecs.PrefspecsPlugin;
-import prefspecs.safari.builders.PrefspecsBuilder;
-import prefspecs.safari.compiler.PrefspecsCompiler;
 
 
 
