@@ -28,7 +28,7 @@ public class NewPreferencesDialogWizardPage extends ExtensionPointWizardPage
  		 // in the wizard--the parameter is "omitIDName", so "false"
  		 // means don't omit them (and "true" means do omit them)
  		 //super(owner, RuntimePlugin.UIDE_RUNTIME, "preferencesDialog", false);
- 		 super(owner, RuntimePlugin.UIDE_RUNTIME, "preferencesDialog", false, true);
+ 		 super(owner, RuntimePlugin.IMP_RUNTIME, "preferencesDialog", false, true);
     }
 
 
