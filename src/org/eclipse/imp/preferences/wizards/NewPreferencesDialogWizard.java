@@ -45,7 +45,7 @@ public class NewPreferencesDialogWizard extends CodeServiceWizard {
 	protected String fAlternativeMessage;
 	
 
-	public static final String PREFERENCES_ID = "org.eclipse.uide.preferences.problem";
+	public static final String PREFERENCES_ID = "org.eclipse.imp.preferences.problem";
 	
 	
 	public void addPages() {
@@ -54,7 +54,7 @@ public class NewPreferencesDialogWizard extends CodeServiceWizard {
 
 	protected List getPluginDependencies() {
 	    return Arrays.asList(new String[] { "org.eclipse.core.runtime", "org.eclipse.core.resources",
-		    "org.eclipse.uide.runtime" });
+		    "org.eclipse.imp.runtime" });
 	}
 
 	

@@ -52,7 +52,7 @@ public class NewPreferencesDialogWizardPage extends ExtensionPointWizardPage
     }
 
     
-    // copied from package org.jikespg.uide.wizards.NewUIDEParserWizardPage
+    // copied from package org.eclipse.imp...NewUIDEParserWizardPage
     
     public String determineLanguage()
     {
@@ -65,7 +65,7 @@ public class NewPreferencesDialogWizardPage extends ExtensionPointWizardPage
 				for(int n= 0; n < extensions.length; n++) {
 				    IPluginExtension extension= extensions[n];
 		
-                    if (!extension.getPoint().equals("org.eclipse.uide.runtime.languageDescription"))
+                    if (!extension.getPoint().equals("org.eclipse.imp.runtime.languageDescription"))
                         continue;
 
                     IPluginObject[] children= extension.getChildren();
