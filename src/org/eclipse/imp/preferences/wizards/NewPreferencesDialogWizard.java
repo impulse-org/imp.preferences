@@ -79,7 +79,7 @@ public class NewPreferencesDialogWizard extends CodeServiceWizard {
 	
 	public void generateCodeStubs(IProgressMonitor mon) throws CoreException {
 
-        Map subs= getStandardSubstitutions(fProject);
+        Map<String,String> subs= getStandardSubstitutions(fProject);
 
         subs.remove("$PREFS_CLASS_NAME$");
         subs.put("$PREFS_CLASS_NAME$", fFullClassName);
