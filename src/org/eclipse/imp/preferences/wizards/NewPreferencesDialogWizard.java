@@ -107,7 +107,8 @@ public class NewPreferencesDialogWizard extends CodeServiceWizard {
         }
         IFile fieldSpecsFile = fProject.getFile(fieldSpecsLocation);
         PreferencesPageInfo pageInfo = prefspecsCompiler.compile(fieldSpecsFile, new NullProgressMonitor());
-        String constantsClassName = fFullClassName + "Constants";        
+        String constantsClassName = fFullClassName + "Constants";
+        String initializerClassName = fFullClassName + "Initializer";
 
 		ISourceProject sourceProject = null;
     	try {
@@ -126,7 +127,7 @@ public class NewPreferencesDialogWizard extends CodeServiceWizard {
         
         IFile initializerSrc = PreferencesFactory.generatePreferencesInitializers(
         		pageInfo,
-        		getPluginPackageName(fProject, null), getPluginClassName(fProject, null), constantsClassName,
+        		getPluginPackageName(fProject, null), getPluginClassName(fProject, null), constantsClassName,	
         		sourceProject, getProjectSourceLocation(), fPackageName, fFullClassName + "Initializer",  mon);
         //IFile initializerSrc = createFileFromTemplate(fFullClassName + "Initializer.java", "preferencesInitializer.java", fPackageFolder, subs, fProject, mon);
         editFile(mon, initializerSrc);
@@ -140,7 +141,7 @@ public class NewPreferencesDialogWizard extends CodeServiceWizard {
 
         IFile defaultSrc = PreferencesFactory.generateDefaultTab(
         		pageInfo,
-        		getPluginPackageName(fProject, null), getPluginClassName(fProject, null), constantsClassName,
+        		getPluginPackageName(fProject, null), getPluginClassName(fProject, null), constantsClassName, initializerClassName,
         		sourceProject, getProjectSourceLocation(), fPackageName, fFullClassName + "DefaultTab",  mon);
         editFile(mon, defaultSrc);
         
@@ -200,7 +201,7 @@ public class NewPreferencesDialogWizard extends CodeServiceWizard {
 		final ExtensionPointWizardPage[] pages = super.pages;
 		final String fieldSpecsRelativeLocation = fFieldSpecs.substring(
 				fProject.getLocation().toString().length(), fFieldSpecs.length());
-		final IProject fProject = super.fProject;
+		//final IProject fProject = super.fProject;
 
 		IRunnableWithProgress op= new IRunnableWithProgress() {
 		    public void run(IProgressMonitor monitor) throws InvocationTargetException {
@@ -213,17 +214,19 @@ public class NewPreferencesDialogWizard extends CodeServiceWizard {
 							// Enable an extension of org.eclipse.ui.preferencePages;
 							// provide only information from fields that correspond to
 							// elements for that extension-point schema.  (Any other
-							// fields provided in the wizard	 should be ignored for
+							// fields provided in the wizard should be ignored for
 							// this purpose.)
 							ExtensionPointEnabler.enable(
 								page.getProject(), "org.eclipse.ui", "preferencePages", 
 								new String[][] {
-									{ "extension:id", "ext." + prefID },
-									{ "extension:name", "ext." + prefName }, 
-									{ "extension.page:id", prefID },
-									{ "extension.page:name", prefName },
-									{ "extension.page:class", prefClass },
-									{ "extension.page:category", prefCategory },
+									{ "page:id", prefID },
+									{ "page:name", prefName },
+									{ "page:class", prefClass },
+									
+									{ "extension:preferencesDialog:language", fLanguageName },
+									{ "extension:preferencesDialog:fields", fFieldSpecs },
+									{ "extension:preferencesDialog:class", prefClass },
+									{ "extension:preferencesDialog:category", prefCategory },
 								},
 								true,
 								getPluginDependencies(),
