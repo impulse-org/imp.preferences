@@ -1,4 +1,9 @@
 /*
+ * (C) Copyright IBM Corporation 2007
+ * 
+ * This file is part of the Eclipse IMP.
+ */
+/*
  * Created on 28 Feb 2007
  */
 package org.eclipse.imp.preferences.cheatsheet;
