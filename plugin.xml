@@ -6,10 +6,10 @@
 
       <wizard
             category="org.eclipse.imp.wizards/org.eclipse.imp.wizards.create"
-            class="org.eclipse.imp.preferences.wizards.NewPreferencesDialogWizard"
+            class="org.eclipse.imp.preferences.wizards.NewPreferencesSpecificationWizard"
             icon="icons/sample.gif"
-            id="org.eclipse.imp.wizards.PreferencesDialog"
-            name="Preferences Support"/>
+            id="org.eclipse.imp.wizards.PreferencesSpecification"
+            name="Preferences Specification"/>
    </extension>
    <extension
          id="org.eclipse.imp.preferences.cheatsheet"
