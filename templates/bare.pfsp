@@ -1,0 +1,29 @@
+	
+page $PREFS_PAGE_NAME$ {
+
+    // START HERE
+    // Set tabs "in" or "out" as desired;
+    // fill in tab-level field attributes
+    tabs {
+    	default in {  }
+    	configuration in {  }
+    	instance in {  }	
+    	project in { }
+    }
+
+    // TODO
+    // Declare in preference fields
+    // and assign their attributes
+    fields {	
+
+    }
+    
+    // TODO
+    // Specify fields that are enabled or
+    // disabled according to the value of a
+    // designated boolean field
+    conditionals {
+
+    }
+
+}
