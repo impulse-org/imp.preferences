@@ -14,8 +14,17 @@ import org.osgi.framework.BundleContext;
  */
 public class PreferencesPlugin extends AbstractUIPlugin {
 
-	//The shared instance.
+    /**
+     * ID of the this plugin, which houses the templates
+     */
+    public static final String PREFERENCES_PLUGIN_ID= "org.eclipse.imp.preferences";
+    
+    
+	/**
+	 * The shared instance
+	 */
 	private static PreferencesPlugin plugin;
+	
 	
 	/**
 	 * The constructor.
