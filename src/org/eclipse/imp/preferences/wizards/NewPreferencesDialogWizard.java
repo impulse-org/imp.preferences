@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -34,6 +33,7 @@ import org.eclipse.imp.wizards.CodeServiceWizard;
 import org.eclipse.imp.wizards.ExtensionPointEnabler;
 import org.eclipse.imp.wizards.ExtensionPointWizardPage;
 import org.eclipse.imp.wizards.WizardPageField;
+import org.eclipse.imp.wizards.WizardUtilities;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
@@ -95,7 +95,7 @@ public class NewPreferencesDialogWizard extends CodeServiceWizard {
         if (fAlternativeMessage.length() != 0){
             subs.remove("$PREFS_ALTERNATIVE_MESSAGE$");
             subs.put("$PREFS_ALTERNATIVE_MESSAGE$", fAlternativeMessage);
-            IFile pageSrc = createFileFromTemplate(fFullClassName + ".java", "preferencesPageAlternative.java", fPackageFolder, subs, fProject, mon);
+            IFile pageSrc = WizardUtilities.createFileFromTemplate(fFullClassName + ".java", "preferencesPageAlternative.java", fPackageFolder, getProjectSourceLocation(), subs, fProject, mon);
             editFile(mon, pageSrc);
             return;
         }	
@@ -140,7 +140,8 @@ public class NewPreferencesDialogWizard extends CodeServiceWizard {
         fInitializerFileName = initializerSrc.getName();
         
         
-        IFile pageSrc = createFileFromTemplate(fFullClassName + ".java", "preferencesPageWithTabs.java", fPackageFolder, subs, fProject, mon);
+        IFile pageSrc = WizardUtilities.createFileFromTemplate(
+        	fFullClassName + ".java", "preferencesPageWithTabs.java", fPackageFolder, getProjectSourceLocation(), subs, fProject, mon);
         editFile(mon, pageSrc);
         
 

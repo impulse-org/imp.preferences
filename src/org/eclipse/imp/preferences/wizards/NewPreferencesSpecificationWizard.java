@@ -27,6 +27,7 @@ import org.eclipse.imp.prefspecs.pageinfo.PreferencesPageInfo;
 import org.eclipse.imp.wizards.CodeServiceWizard;
 import org.eclipse.imp.wizards.ExtensionPointWizardPage;
 import org.eclipse.imp.wizards.WizardPageField;
+import org.eclipse.imp.wizards.WizardUtilities;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
 	
@@ -119,7 +120,8 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
         if (fAlternativeMessage.length() != 0){
             subs.remove("$PREFS_ALTERNATIVE_MESSAGE$");
             subs.put("$PREFS_ALTERNATIVE_MESSAGE$", fAlternativeMessage);
-            IFile pageSrc = createFileFromTemplate(fFullClassName + ".java", "preferencesPageAlternative.java", fPackageFolder, subs, fProject, mon);
+            IFile pageSrc = WizardUtilities.createFileFromTemplate(
+            	fFullClassName + ".java", "preferencesPageAlternative.java", fPackageFolder, getProjectSourceLocation(), subs, fProject, mon);
             editFile(mon, pageSrc);
             return;
         }
@@ -155,7 +157,8 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
 //            return;
 //    	}
         
-        IFile prefSpecsSpec = createFileFromTemplate(fFileName, PreferencesPlugin.PREFERENCES_PLUGIN_ID, templateNameForCreatingFile, fPagePackage, subs, fProject, mon);
+        IFile prefSpecsSpec = WizardUtilities.createFileFromTemplate(
+        	fFileName, PreferencesPlugin.PREFERENCES_PLUGIN_ID, templateNameForCreatingFile, fPagePackage, getProjectSourceLocation(), subs, fProject, mon);
 
         editFile(mon, prefSpecsSpec);
 
@@ -230,7 +233,7 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
 		if (file.exists()) {
 		    file.setContents(new ByteArrayInputStream(contents.getBytes()), true, true, mon);
 		} else {
-		    createSubFolders(packagePath, fProject	, mon);
+		    WizardUtilities.createSubFolders(packagePath, fProject	, mon);
 		    file.create(new ByteArrayInputStream(contents.getBytes()), true, mon);
 		}
    		
