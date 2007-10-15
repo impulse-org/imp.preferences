@@ -30,8 +30,8 @@ implementation might make use of the preferences service.
 </intro>
 
 <item title="Create a preference service and page">
-<action pluginId="com.ibm.watson.safari.cheatsheets"
-        class="com.ibm.watson.safari.cheatsheets.actions.NewPreferenceServiceAndPagesAction"/>
+<action pluginId="org.eclipse.imp.cheatsheets"
+        class="org.eclipse.imp.cheatsheets.actions.NewPreferenceServiceAndPagesAction"/>
 <description>
 
 To invoke the New Preference Page wizard, select<br/><br/>
