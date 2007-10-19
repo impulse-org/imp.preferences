@@ -4,6 +4,7 @@
 package org.eclipse.imp.preferences.wizards;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
@@ -20,15 +21,14 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.imp.core.ErrorHandler;
 import org.eclipse.imp.preferences.PreferencesPlugin;
-import org.eclipse.imp.prefspecs.PrefspecsPlugin;
-import org.eclipse.imp.prefspecs.builders.PrefspecsBuilder;
-import org.eclipse.imp.prefspecs.compiler.PrefspecsCompiler;
-import org.eclipse.imp.prefspecs.pageinfo.PreferencesPageInfo;
 import org.eclipse.imp.wizards.CodeServiceWizard;
 import org.eclipse.imp.wizards.ExtensionPointWizardPage;
 import org.eclipse.imp.wizards.WizardPageField;
 import org.eclipse.imp.wizards.WizardUtilities;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
 
 	
 
@@ -249,70 +249,22 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
      * point id for preference menu items
      */
 	public boolean performFinish() {
-		collectCodeParms(); // Do this in the UI thread while the wizard fields are still accessible
-	   	if (!okToClobberFiles(getFilesThatCouldBeClobbered()))
+		// In UI thread while wizard-page fields remain accessible
+		collectCodeParms(); 
+		if (!checkFieldConsistency())
+			return false;
+		if (!okToClobberFiles(getFilesThatCouldBeClobbered()))
     		return false;
-
 	   	
-	   	
-//		ExtensionPointWizardPage page= pages[0];
-//		WizardPageField prefIdField = page.getField("id");	
-//		WizardPageField prefNameField = page.getField("name");
-//		WizardPageField prefClassField = page.getField("class");
-//		WizardPageField prefCategoryField = page.getField("category");
-//		WizardPageField prefAlternativeField = page.getField("alternative");
-//		final String prefID = prefIdField.getText();
-//		final String prefName = prefNameField.getText();
-//		final String prefClass = prefClassField.getText();
-//		final String prefCategory = prefCategoryField.getText();
-//		final String prefAlternative = prefAlternativeField.getText();
-//		final ExtensionPointWizardPage[] pages = super.pages;
-		//final String fieldSpecsRelativeLocation = fFieldSpecs.substring(
-		//fProject.getLocation().toString().length(), fFieldSpecs.length());
-		//final IProject fProject = super.fProject;
-
 		IRunnableWithProgress op= new IRunnableWithProgress() {
 		    public void run(IProgressMonitor monitor) throws InvocationTargetException {
 			IWorkspaceRunnable wsop= new IWorkspaceRunnable() {
 			    public void run(IProgressMonitor monitor) throws CoreException {
 				try {
-//					    for(int n= 0; n < pages.length; n++) {
-//							NewPreferencesSpecificationWizardPage page= (NewPreferencesSpecificationWizardPage) pages[n];	
-//							if (!page.hasBeenSkipped() && page.getSchema() != null) {
-//								// Enable an extension of org.eclipse.ui.preferencePages;
-//								// provide only information from fields that correspond to
-//								// elements for that extension-point schema.  (Any other
-//								// fields provided in the wizard should be ignored for
-//								// this purpose.)
-//								ExtensionPointEnabler.enable(
-//									page.getProject(), "org.eclipse.ui", "preferencePages", 
-//									new String[][] {
-//										{ "page:id", prefID },
-//										{ "page:name", prefName },
-//										{ "page:class", prefClass },
-//										
-//										{ "extension:preferencesDialog:language", fLanguageName },
-//	//									{ "extension:preferencesDialog:fields", fFieldSpecs },
-//										{ "extension:preferencesDialog:class", prefClass },
-//										{ "extension:preferencesDialog:category", prefCategory },
-//									},
-//									true,
-//									getPluginDependencies(),
-//									monitor);
-//							}
-//					    }	
-
 					// SMS 18 Jun 2007:  Duplicative if generateCodeStubs() calls compile?
 					//PreferencesPageInfo pageInfo = compile(fProject.getFile(new Path(fieldSpecsRelativeLocation)), monitor);
 					generateCodeStubs(new NullProgressMonitor());
 				   	writeOutGenerationParameters();
-				   	
-//				    if (pageInfo != null)
-//				    	System.out.println("NewPreferencesSpecificationWizard.performFinish():  got non-null page info in preparation for code generation");
-//				    else {
-//				    	System.out.println("NewPreferencesSpecificationWizard.performFinish():  got null page info in preparation for code generation");
-//				    }
-				    //generateCodeStubs(monitor);
 				} catch (Exception e) {
 					ErrorHandler.reportError("NewPreferencesSpecificationWizard.performFinish():  Error adding extension or generating code", e);
 				} finally {
@@ -353,26 +305,51 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
 //		int result = messageBox.open();
 //	}
 
+	// SMS 19 Oct 2007 commented out as invocation of compiler
+	// previously moved to builder
+//	protected PreferencesPageInfo compile(final IFile file, IProgressMonitor monitor) {
+//        try {
+//            // START_HERE
+//            System.out.println("Builder.compile with file = " + file.getName());
+//            PrefspecsCompiler compiler= new PrefspecsCompiler(PrefspecsBuilder.PROBLEM_MARKER_ID);
+//            PreferencesPageInfo pageInfo = compiler.compile(file, monitor);
+//
+//            // May not need to refresh yet, that is, unless and until
+//            // the compiler is updating some files (which it's not
+//            // as of 7 May 2007)
+//            //doRefresh(file.getParent());
+//            
+//            return pageInfo;
+//        } catch (Exception e) {
+//        	PrefspecsPlugin.getInstance().writeErrorMsg(e.getMessage());
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 	
-	protected PreferencesPageInfo compile(final IFile file, IProgressMonitor monitor) {
-        try {
-            // START_HERE
-            System.out.println("Builder.compile with file = " + file.getName());
-            PrefspecsCompiler compiler= new PrefspecsCompiler(PrefspecsBuilder.PROBLEM_MARKER_ID);
-            PreferencesPageInfo pageInfo = compiler.compile(file, monitor);
-
-            // May not need to refresh yet, that is, unless and until
-            // the compiler is updating some files (which it's not
-            // as of 7 May 2007)
-            //doRefresh(file.getParent());
-            
-            return pageInfo;
-        } catch (Exception e) {
-        	PrefspecsPlugin.getInstance().writeErrorMsg(e.getMessage());
-            e.printStackTrace();
-            return null;
-        }
-    }
+	/**
+	 * 
+	 */
+	protected boolean checkFieldConsistency() {
+		// does template file exist as a file?
+		File templateFile = new File(fTemplate);
+		if (!templateFile.exists())
+			return postErrorMessage("Specified template file does not exist");
+		if (!templateFile.isFile())
+			return postErrorMessage("Specified template file is not a file");
+		
+		return true;
+	}
+	
+	
+	protected boolean postErrorMessage(String msg) {
+		Shell parent = this.getShell();
+		MessageBox messageBox = new MessageBox(parent, (SWT.CANCEL));
+		messageBox.setMessage(msg);
+		int result = messageBox.open();
+		//if (result == SWT.CANCEL)
+		return false;
+	}
 	
 	
    /**
