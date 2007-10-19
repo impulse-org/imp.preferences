@@ -133,7 +133,7 @@ public class NewPreferencesSpecificationWizardPage extends ExtensionPointWizardP
             WizardPageField field= getField("template");
 
             if (field.getText().length() == 0) {
-            	String templatesPath = getTemplatesPath();
+            	String templatesPath = getTemplatesPath() + "standard.pfsp";
             	templatesPath = templatesPath.replace('\\', '/');
                 field.setText(templatesPath);
             }
