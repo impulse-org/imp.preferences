@@ -72,15 +72,24 @@ public class NewPreferencesSpecificationWizardPage extends ExtensionPointWizardP
     }
 
     
-    // copied from package org.eclipse.imp...NewUIDEParserWizardPage
+    // Originally copied from package org.eclipse.imp...NewUIDEParserWizardPage
+    // Now may duplicate method in NewLanguageSupportWizardPage
     
     public String determineLanguage()
     {
+		if (fLanguageName != null)
+			return fLanguageName;
+		
 		try {
-			if (fLanguageName != null)
-				return fLanguageName;
-			
-		    IPluginModel pluginModel= ExtensionPointEnabler.getPluginModel(getProject());
+    		// SMS 9 Oct 2007
+    		IProject project = null;
+        	if (fProject != null)
+        		project = fProject;
+        	else {
+        		project = getProjectBasedOnNameField();
+        	}
+
+		    IPluginModel pluginModel= ExtensionPointEnabler.getPluginModel(project);
 	
 		    if (pluginModel != null) {
 				IPluginExtension[] extensions= pluginModel.getExtensions().getExtensions();
@@ -103,8 +112,8 @@ public class NewPreferencesSpecificationWizardPage extends ExtensionPointWizardP
 				    }
 				    System.err.println("NewPreferencesSpecificationWizardPage.determineLanguage():  Unable to determine language for plugin '" + pluginModel.getBundleDescription().getName() + "': no languageDescription extension.");
 				}
-		    } else if (getProject() != null)
-		    	System.out.println("Not a plugin project: " + getProject().getName());
+		    } else if (project != null)
+		    	System.out.println("Not a plugin project: " + project.getName());
 		} catch (Exception e) {
 		    e.printStackTrace();
 		}
@@ -233,7 +242,6 @@ public class NewPreferencesSpecificationWizardPage extends ExtensionPointWizardP
             WizardPageField field= getField("pageName");
 
             if (field.getText().length() == 0) {
-            	String baseName = null;
                 String pluginLang= determineLanguage();
                 // make sure the language has an upper case initial for this purpose
                 pluginLang = pluginLang.substring(0, 1).toUpperCase() + pluginLang.substring(1);
@@ -241,7 +249,7 @@ public class NewPreferencesSpecificationWizardPage extends ExtensionPointWizardP
                 if (pluginLang.length() != 0)
                     field.setText(pluginLang + " Preferences");	
                 else
-                    field.setText(getProject().getName() + " Preferences");
+                    field.setText(getProjectOfRecord().getName() + " Preferences");
             }
         } catch (Exception e) {
             ErrorHandler.reportError("NewPreferencesSpecificationWizardPage.setPageNameIfEmpty():  Cannot set 'pageName' field", e);
@@ -258,7 +266,7 @@ public class NewPreferencesSpecificationWizardPage extends ExtensionPointWizardP
                 if (pluginLang.length() != 0)
                     field.setText("org.ecipse.imp." + pluginLang + ".preferences");
                 else
-                    field.setText(getProject().getName() + ".preferences");
+                    field.setText(getProjectOfRecord()	.getName() + ".preferences");
             }
         } catch (Exception e) {
             ErrorHandler.reportError("NewPreferencesSpecificationWizardPage.setPageNameIfEmpty():  Cannot set 'pageName' field", e);

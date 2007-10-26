@@ -223,7 +223,7 @@ public class NewPreferencesDialogWizard extends CodeServiceWizard {
 							// fields provided in the wizard should be ignored for
 							// this purpose.)
 							ExtensionPointEnabler.enable(
-								page.getProject(), "org.eclipse.ui", "preferencePages", 
+								page.getProjectOfRecord(), "org.eclipse.ui", "preferencePages", 
 								new String[][] {
 									{ "page:id", prefID },
 									{ "page:name", prefName },

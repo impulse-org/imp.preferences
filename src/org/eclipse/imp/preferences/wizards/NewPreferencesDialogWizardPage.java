@@ -57,12 +57,21 @@ public class NewPreferencesDialogWizardPage extends ExtensionPointWizardPage
     }
 
     
-    // copied from package org.eclipse.imp...NewUIDEParserWizardPage
+    // Originally copied from package org.eclipse.imp...NewUIDEParserWizardPage
+    // Now may duplicate method in NewLanguageSupportWizardPage
     
     public String determineLanguage()
     {
 		try {
-		    IPluginModel pluginModel= ExtensionPointEnabler.getPluginModel(getProject());
+    		// SMS 9 Oct 2007
+    		IProject project = null;
+        	if (fProject != null)
+        		project = fProject;
+        	else {
+        		project = getProjectBasedOnNameField();
+        	}
+        	
+		    IPluginModel pluginModel= ExtensionPointEnabler.getPluginModel(project);
 	
 		    if (pluginModel != null) {
 				IPluginExtension[] extensions= pluginModel.getExtensions().getExtensions();
@@ -84,8 +93,8 @@ public class NewPreferencesDialogWizardPage extends ExtensionPointWizardPage
 				    }
 				    System.err.println("NewPreferencesDialogWizardPage.determineLanguage():  Unable to determine language for plugin '" + pluginModel.getBundleDescription().getName() + "': no languageDescription extension.");
 				}
-		    } else if (getProject() != null)
-		    	System.out.println("Not a plugin project: " + getProject().getName());
+		    } else if (project != null)
+		    	System.out.println("Not a plugin project: " + project.getName());
 		} catch (Exception e) {
 		    e.printStackTrace();
 		}
@@ -114,7 +123,7 @@ public class NewPreferencesDialogWizardPage extends ExtensionPointWizardPage
             WizardPageField field= getField("fields");
 
             if (field.getText().length() == 0) {
-            	IProject project = getProject();
+            	IProject project = getProjectOfRecord();
             	String text = null;
             	IFolder prefsFolder = project.getFolder("preferences");
             	if (prefsFolder.exists())
