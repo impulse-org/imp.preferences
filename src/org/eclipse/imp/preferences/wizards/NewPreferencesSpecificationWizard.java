@@ -67,7 +67,7 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
     	
 		WizardPageField field = null;
 		
-    	fProject = page.getProject();
+    	fProject = page.getProjectOfRecord();
 		
 		field = page.getField("template");
 		fTemplate = field.fValue;
@@ -305,27 +305,6 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
 //		int result = messageBox.open();
 //	}
 
-	// SMS 19 Oct 2007 commented out as invocation of compiler
-	// previously moved to builder
-//	protected PreferencesPageInfo compile(final IFile file, IProgressMonitor monitor) {
-//        try {
-//            // START_HERE
-//            System.out.println("Builder.compile with file = " + file.getName());
-//            PrefspecsCompiler compiler= new PrefspecsCompiler(PrefspecsBuilder.PROBLEM_MARKER_ID);
-//            PreferencesPageInfo pageInfo = compiler.compile(file, monitor);
-//
-//            // May not need to refresh yet, that is, unless and until
-//            // the compiler is updating some files (which it's not
-//            // as of 7 May 2007)
-//            //doRefresh(file.getParent());
-//            
-//            return pageInfo;
-//        } catch (Exception e) {
-//        	PrefspecsPlugin.getInstance().writeErrorMsg(e.getMessage());
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
 	
 	/**
 	 * 
