@@ -8,7 +8,7 @@
  */
 package org.eclipse.imp.preferences.cheatsheet;
 
-import org.eclipse.imp.preferences.wizards.NewPreferencesDialogWizard;
+import org.eclipse.imp.preferences.wizards.NewPreferencesSpecificationWizard;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
@@ -26,7 +26,7 @@ public class NewPreferenceServiceAndPagesAction extends Action implements ICheat
     }
 
     public void run(String[] params, ICheatSheetManager manager) {
-    NewPreferencesDialogWizard newPreferencesDialog= new NewPreferencesDialogWizard();
+    NewPreferencesSpecificationWizard newPreferencesDialog= new NewPreferencesSpecificationWizard();
 	Shell shell= PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 	WizardDialog wizDialog= new WizardDialog(shell, newPreferencesDialog);
 
