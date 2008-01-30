@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.imp.core.ErrorHandler;
 import org.eclipse.imp.preferences.PreferencesPlugin;
 import org.eclipse.imp.wizards.CodeServiceWizard;
+import org.eclipse.imp.wizards.ExtensionPointEnabler;
 import org.eclipse.imp.wizards.ExtensionPointWizardPage;
 import org.eclipse.imp.wizards.WizardPageField;
 import org.eclipse.imp.wizards.WizardUtilities;
@@ -157,9 +158,21 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
 //            return;
 //    	}
         
+        
+        // Enable the extension for the initializer
+        ExtensionPointEnabler.enable(
+            	fProject, "org.eclipse.core.runtime", "preferences",
+            	new String[][] {
+            			{ "initializer:class", fPagePackage + "." + fPageClassNameBase + "Initializer" },
+                	    },
+        		false,
+        		getPluginDependencies(),
+        		mon);
+        
+        
         IFile prefSpecsSpec = WizardUtilities.createFileFromTemplate(
         	fFileName, PreferencesPlugin.PREFERENCES_PLUGIN_ID, templateNameForCreatingFile, fPagePackage, getProjectSourceLocation(), subs, fProject, mon);
-
+        
         editFile(mon, prefSpecsSpec);
 
 	}
