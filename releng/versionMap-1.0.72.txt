@@ -2,7 +2,7 @@
 <version pluginID="org.eclipse.imp.preferences"
          versionID="1.0.72">
     <file path="/org.eclipse.imp.preferences/META-INF/MANIFEST.MF"
-          version="1.17"/>
+          version="1.18"/>
     <file path="/org.eclipse.imp.preferences/icons/sample.gif"
           version="1.1"/>
     <file path="/org.eclipse.imp.preferences/plugin.xml"
