@@ -122,7 +122,7 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
             subs.remove("$PREFS_ALTERNATIVE_MESSAGE$");
             subs.put("$PREFS_ALTERNATIVE_MESSAGE$", fAlternativeMessage);
             IFile pageSrc = WizardUtilities.createFileFromTemplate(
-            	fFullClassName + ".java", "preferencesPageAlternative.java", fPackageFolder, getProjectSourceLocation(), subs, fProject, mon);
+            	fFullClassName + ".java", "preferencesPageAlternative.java", fPackageFolder, getProjectSourceLocation(fProject), subs, fProject, mon);
             editFile(mon, pageSrc);
             return;
         }
@@ -171,7 +171,7 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
         
         
         IFile prefSpecsSpec = WizardUtilities.createFileFromTemplate(
-        	fFileName, PreferencesPlugin.PREFERENCES_PLUGIN_ID, templateNameForCreatingFile, fPagePackage, getProjectSourceLocation(), subs, fProject, mon);
+        	fFileName, PreferencesPlugin.PREFERENCES_PLUGIN_ID, templateNameForCreatingFile, fPagePackage, getProjectSourceLocation(fProject), subs, fProject, mon);
         
         editFile(mon, prefSpecsSpec);
 
@@ -238,7 +238,7 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
    			"PageMenuItem=" + (fMenuItem == null || fMenuItem.length() == 0 ? "TOP" : fMenuItem) + "\n" +
    			"AlternativeMessage=" + (fAlternativeMessage == null || fAlternativeMessage.length() == 0 ? "Message omitted." : fAlternativeMessage) + "\n";
    		
-		String packagePath = getProjectSourceLocation() + fPagePackage.replace('.', '/');
+		String packagePath = getProjectSourceLocation(fProject) + fPagePackage.replace('.', '/');
 		IPath paramFilePath = new Path(packagePath + "/" + fPageClassNameBase + ".genparams");	
 		final IFile file= fProject.getFile(paramFilePath);
 		
@@ -352,7 +352,7 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
      * 			the new files to be generated
      */
 	   protected String[] getFilesThatCouldBeClobbered() {
-			String packagePath = getProjectSourceLocation() + fPagePackage.replace('.', '/');
+			String packagePath = getProjectSourceLocation(fProject) + fPagePackage.replace('.', '/');
 			IPath specFilePath = new Path(packagePath + "/" + fFileName);
 			final IFile file= fProject.getFile(specFilePath);
 			if (file.exists()) {
