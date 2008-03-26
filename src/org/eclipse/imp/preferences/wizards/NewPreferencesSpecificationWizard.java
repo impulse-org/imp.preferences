@@ -379,7 +379,7 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
 	   /**
 	     * Refreshes all resources in the entire project tree containing the given resource.
 	     * Crude but effective.
-	     * Copied from SAFARIBuilderBase, where it's not static, and probably wouldn't belong
+	     * Copied from BuilderBase, where it's not static, and probably wouldn't belong
 	     * if it were.  Should probably put into a utility somewhere.
 	     */
 	    protected void doRefresh(final IResource resource) {
