@@ -15,7 +15,6 @@ package org.eclipse.imp.preferences.wizards;
 
 import java.io.IOException;
 
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
