@@ -302,6 +302,16 @@ public class NewPreferencesSpecificationWizardPage extends ExtensionPointWizardP
     }
     
     
+    /**
+     * Overrides the default version of this method so as to do nothing, i.e.,
+     * so as to not actually create the template field for this wizard page.
+     * NOTE:  This wizard already creates its own template field.
+     */
+	public WizardPageField createTemplateBrowseField(Composite parent, String componentID) {
+		return null;
+	}
+	
+	
     protected Schema getSchema() {
     	return fSchema;
     }
