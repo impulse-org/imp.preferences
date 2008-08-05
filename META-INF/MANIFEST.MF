@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: IMP Preferences Meta-tooling (Incubation)
 Bundle-SymbolicName: org.eclipse.imp.preferences;singleton:=true
-Bundle-Version: 0.1.77
+Bundle-Version: 0.1.78
 Bundle-Activator: org.eclipse.imp.preferences.PreferencesPlugin
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
