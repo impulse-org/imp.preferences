@@ -19,3 +19,4 @@ Eclipse-LazyStart: true
 Export-Package: org.eclipse.imp.preferences,
  org.eclipse.imp.preferences.cheatsheet,
  org.eclipse.imp.preferences.wizards
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
