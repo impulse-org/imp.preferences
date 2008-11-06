@@ -33,6 +33,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.imp.core.ErrorHandler;
 import org.eclipse.imp.preferences.PreferencesPlugin;
+import org.eclipse.imp.prefspecs.builders.PrefspecsNature;
 import org.eclipse.imp.wizards.CodeServiceWizard;
 import org.eclipse.imp.wizards.ExtensionPointEnabler;
 import org.eclipse.imp.wizards.ExtensionPointWizardPage;
@@ -286,10 +287,9 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
 			IWorkspaceRunnable wsop= new IWorkspaceRunnable() {
 			    public void run(IProgressMonitor monitor) throws CoreException {
 				try {
-					// SMS 18 Jun 2007:  Duplicative if generateCodeStubs() calls compile?
-					//PreferencesPageInfo pageInfo = compile(fProject.getFile(new Path(fieldSpecsRelativeLocation)), monitor);
 					generateCodeStubs(new NullProgressMonitor());
 				   	writeOutGenerationParameters();
+				   	new PrefspecsNature().addToProject(fProject);
 				} catch (Exception e) {
 					ErrorHandler.reportError("NewPreferencesSpecificationWizard.performFinish():  Error adding extension or generating code", e);
 				} finally {
