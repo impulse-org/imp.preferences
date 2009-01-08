@@ -16,49 +16,35 @@
 // which it has been enabled.  You can enable the builder on any
 // project in a workspace where Eclipse IMP is installed by right-
 // clicking on the project and selecting "Enable prefspecs Builder"
-// in the context menu.)
+// in the context menu. The Preferences Specification wizard enables
+// the prefspecs builder on the project containing the spec file.)
 //
 // This template can be used as-is to generate a compilable, buildable
 // preferences specification that you can experiment with to gain
 // familiarity with the prefspecs language and the characteristics
 // and operation of prefspecs-based preference pages.
 //
-// You can also edit the generated preferences specification to specify
-// preferences for an application that you are developing.
-//
 
-	
 page $PREFS_PAGE_NAME$ {
-
     // START HERE
     // Set tabs "in" or "out" as desired; fill in tab-level attributes
     // for field properties, if desired:  iseditable, isremovable
     tabs {
     	default in { iseditable false; isremovable false; }
-    	configuration in { iseditable true; isremovable false; }
+    	configuration in { }
     	instance in {  }
     	project in { }
     }
     
     // TODO
-    // Declare in preference fields and assign their attributes
+    // Declare preference fields and specify their attributes
     fields {
-    	boolean UseDefaultPreferencesTemplate { hasspecial true; defvalue true; }
-    	file  PreferencesTemplateToUse { defvalue "$PREFS_TEMPLATE_NAME$"; }
+    	boolean UseDefaultPreferencesTemplate { defvalue true; }
+    	file    PreferencesTemplateToUse { defvalue "$PREFS_TEMPLATE_NAME$"; } unless UseDefaultPreferencesTemplate
     	boolean UseDefaultIncludePath { defvalue true; }
-    	dirlist  IncludePathToUse { hasspecial "."; defvalue ".;..;$PREFS_TEMPLATE_DIR$"; }
-    	boolean GenerateLog { hasspecial true; defvalue false; }
-    	int MaxLogEntries { range 0..1000; hasspecial 1; defvalue 100; }
-    	string HelloWorldMessage { hasspecial ";Hola!"; defvalue "Hello!"; }	
+    	dirlist IncludePathToUse { defvalue ".;..;$PREFS_TEMPLATE_DIR$"; } unless UseDefaultIncludePath
+    	boolean GenerateLog { defvalue false; }
+    	int     MaxLogEntries { range 0..1000; defvalue 100; } if GenerateLog
+    	string  HelloWorldMessage { defvalue "Hello!"; }	
     }
-
-    // TODO
-    // Specify fields that are enabled or disabled according to
-    // the value of designated boolean field
-    conditionals {
-    	PreferencesTemplateToUse against UseDefaultPreferencesTemplate;
-    	IncludePathToUse against UseDefaultIncludePath;
-    	MaxLogEntries with GenerateLog;	
-    }
-
 }
