@@ -44,7 +44,7 @@ page $PREFS_PAGE_NAME$ {
     	boolean UseDefaultIncludePath { defvalue true; }
     	dirlist IncludePathToUse { defvalue ".;..;$PREFS_TEMPLATE_DIR$"; } unless UseDefaultIncludePath
     	boolean GenerateLog { defvalue false; }
-    	int     MaxLogEntries { range 0..1000; defvalue 100; } if GenerateLog
+    	int     MaxLogEntries { range 0 .. 1000; defvalue 100; } if GenerateLog
     	string  HelloWorldMessage { defvalue "Hello!"; }	
     }
 }
