@@ -1,50 +1,58 @@
 //
 // This preferences-specification template declares some example
 // preference fields and some conditional controls for enabling
-// one field based on another.  These are only examples.
+// one field based on another.
 // 
-// When the Preferences Specification wizard is run, this template
-// can be selected as the basis for generating a skeleton preferences
-// specification.  You can run the prefspecs builder on that
-// specification to generate the corresponding implementation
-// classes for a preference page that will let you view and manage
-// the specified preferences.  That preference page should be
-// available automatically in any workspace in which the plugin
-// that defines the page is installed.
-//
-// (The prefspecs builder will run automatically on any project for
-// which it has been enabled.  You can enable the builder on any
-// project in a workspace where Eclipse IMP is installed by right-
-// clicking on the project and selecting "Enable prefspecs Builder"
-// in the context menu. The Preferences Specification wizard enables
-// the prefspecs builder on the project containing the spec file.)
-//
-// This template can be used as-is to generate a compilable, buildable
-// preferences specification that you can experiment with to gain
-// familiarity with the prefspecs language and the characteristics
-// and operation of prefspecs-based preference pages.
-//
+package $PREFS_PACKAGE_NAME$;
 
 page $PREFS_PAGE_NAME$ {
-    // START HERE
-    // Set tabs "in" or "out" as desired; fill in tab-level attributes
-    // for field properties, if desired:  iseditable, isremovable
+    // There is one tab for each level of preference values:
+    //  - "default" (as specified by "defvalue" attributes below)
+    //  - "configuration" (shared by all Eclipse invocations from the same installation)
+    //  - "instance" (shared by all Eclipse invocations on the same workspace)
+    //  - "project" (project-specific settings)
+    //
+    // A value for a given preference key may be set at any or all of these levels.
+    //
+    // Value accesses are made from a client-specified context (one of the above 4 levels).
+    //
+    // If no value for the given preference key exists at the specified level, it is inherited
+    // from the next level above, going up to the default level (which always has a value), if
+    // necessary, to find a value.
+    //
+    // Clients will typically qualify their accesses using either the instance (workspace)
+    // context or a project. This context is established when the client creates the
+    // PreferencesService instance.
+    //
+    // "in" tabs appear in the preference page; "out" tabs do not.
+    // The following combination gives the "classic" Eclipse behavior.
     tabs {
-    	default in { iseditable false; isremovable false; }
-    	configuration in { }
+    	default out { }
+    	configuration out { }
     	instance in {  }
-    	project in { }
+    	project out { }
     }
-    
-    // TODO
-    // Declare preference fields and specify their attributes
+
+    // TODO Customize the preference fields and their attributes
     fields {
-    	boolean UseDefaultPreferencesTemplate { defvalue true; }
-    	file    PreferencesTemplateToUse { defvalue "$PREFS_TEMPLATE_NAME$"; } unless UseDefaultPreferencesTemplate
-    	boolean UseDefaultIncludePath { defvalue true; }
-    	dirlist IncludePathToUse { defvalue ".;..;$PREFS_TEMPLATE_DIR$"; } unless UseDefaultIncludePath
-    	boolean GenerateLog { defvalue false; }
-    	int     MaxLogEntries { range 0 .. 1000; defvalue 100; } if GenerateLog
-    	string  HelloWorldMessage { defvalue "Hello!"; }	
+        // START HERE
+        boolean UseDefaultIncludePath { defvalue true; }
+        dirlist IncludePathToUse {
+            tooltip "A semicolon-separated list of folders to search for include files";
+            defvalue ".;..;${pluginResource:org.eclipse.imp.leg/include}";
+        } unless UseDefaultIncludePath
+        string SourceFileExtensions {
+            tooltip "A comma-separated list of file name extensions identifying the source files to process";
+            defvalue "leg";
+        }
+        boolean GenerateLog {
+            tooltip "If true, place detailed information from the build process in a log file";
+            defvalue true;
+        }
+    	int MaxLogEntries {
+    	    label "Maximum # of log entries";
+    	    range 0 .. 1000;
+    	    defvalue 100;
+    	} if GenerateLog
     }
 }
