@@ -8,7 +8,7 @@
             category="org.eclipse.imp.wizards/org.eclipse.imp.wizards.create"
             class="org.eclipse.imp.preferences.wizards.NewPreferencesSpecificationWizard"
             icon="icons/sample.gif"
-            id="org.eclipse.imp.wizards.PreferencesSpecification"
+            id="org.eclipse.imp.wizards.NewPreferencesSpecification"
             name="Preferences Specification"/>
    </extension>
    <extension
