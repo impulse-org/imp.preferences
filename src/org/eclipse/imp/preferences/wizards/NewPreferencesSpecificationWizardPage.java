@@ -277,7 +277,7 @@ public class NewPreferencesSpecificationWizardPage extends ExtensionPointWizardP
                 if (pluginLang.length() != 0)
                     field.setText("org.eclipse.imp." + pluginLang + ".preferences");
                 else
-                    field.setText(getProjectOfRecord()	.getName() + ".preferences");
+                    field.setText(getProjectOfRecord().getName() + ".preferences");
             }
         } catch (Exception e) {
             ErrorHandler.reportError("NewPreferencesSpecificationWizardPage.setPageNameIfEmpty():  Cannot set 'pageName' field", e);
