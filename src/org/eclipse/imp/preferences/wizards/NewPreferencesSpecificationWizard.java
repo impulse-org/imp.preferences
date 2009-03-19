@@ -107,16 +107,13 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
         field = page.getField("alternative");
         fAlternativeMessage = field.fValue;
     }
-	
-	
-	public void generateCodeStubs(IProgressMonitor mon) throws CoreException {
 
+	public void generateCodeStubs(IProgressMonitor mon) throws CoreException {
         Map<String,String> subs= getStandardSubstitutions(fProject);
 
         // The user-specified user-friendly preferences page name
         // might include blanks, which should be excluded when the
         // name is used as an identifier within the page itself
-        subs.remove("$PREFS_PAGE_NAME$");
         String identifierSegments[] = fPageName.split(" ");
         String pageIdentifier = identifierSegments[0];
         for (int i = 1; i < identifierSegments.length; i++) {
@@ -130,9 +127,9 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
         if (templateName.lastIndexOf("/") > -1)
         	lastFileSep = templateName.lastIndexOf("/");
         subs.put("$PREFS_TEMPLATE_DIR$", templateName.substring(0, lastFileSep));
+        subs.put("$PREFS_PACKAGE_NAME$", fPagePackage);
         
         if (fAlternativeMessage.length() != 0){
-            subs.remove("$PREFS_ALTERNATIVE_MESSAGE$");
             subs.put("$PREFS_ALTERNATIVE_MESSAGE$", fAlternativeMessage);
             IFile pageSrc = WizardUtilities.createFileFromTemplate(
             	fFullClassName + ".java", "preferencesPageAlternative.java", fPackageFolder, getProjectSourceLocation(fProject), subs, fProject, mon);
@@ -140,9 +137,6 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
             return;
         }
 
-
-
-//        PrefspecsCompiler prefspecsCompiler = new PrefspecsCompiler(PREFERENCES_ID);
         // fFieldSpecs has full absolute path; need to give project relative path
         String projectLocation = fProject.getLocation().toString();
         String fieldSpecsLocation = fPagePackage;
