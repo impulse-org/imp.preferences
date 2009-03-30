@@ -182,6 +182,7 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
         
         editFile(mon, prefSpecsSpec);
 
+        new PrefspecsNature().addToProject(fProject);
 	}
 	
 	
