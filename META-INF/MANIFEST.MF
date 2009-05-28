@@ -2,9 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: IMP Preferences Meta-tooling (Incubation)
 Bundle-SymbolicName: org.eclipse.imp.preferences;singleton:=true
-Bundle-Version: 0.1.84
+Bundle-Version: 0.1.85
 Bundle-Activator: org.eclipse.imp.preferences.PreferencesPlugin
-Bundle-Localization: plugin
+Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
@@ -15,7 +15,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.imp.runtime,
  org.eclipse.imp.metatooling,
  org.eclipse.imp.prefspecs
-Eclipse-LazyStart: true
 Export-Package: org.eclipse.imp.preferences,
  org.eclipse.imp.preferences.cheatsheet,
  org.eclipse.imp.preferences.wizards
