@@ -21,7 +21,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.imp.core.ErrorHandler;
 import org.eclipse.imp.preferences.PreferencesPlugin;
 import org.eclipse.imp.runtime.RuntimePlugin;
-import org.eclipse.imp.wizards.ExtensionPointEnabler;
+import org.eclipse.imp.wizards.ExtensionEnabler;
 import org.eclipse.imp.wizards.ExtensionPointWizard;
 import org.eclipse.imp.wizards.ExtensionPointWizardPage;
 import org.eclipse.imp.wizards.WizardPageField;
@@ -100,7 +100,7 @@ public class NewPreferencesSpecificationWizardPage extends ExtensionPointWizardP
         		project = getProjectBasedOnNameField();
         	}
 
-		    IPluginModel pluginModel= ExtensionPointEnabler.getPluginModel(project);
+		    IPluginModel pluginModel= ExtensionEnabler.getPluginModel(project);
 	
 		    if (pluginModel != null) {
 				IPluginExtension[] extensions= pluginModel.getExtensions().getExtensions();

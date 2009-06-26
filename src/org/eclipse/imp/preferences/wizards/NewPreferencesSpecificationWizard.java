@@ -35,7 +35,7 @@ import org.eclipse.imp.core.ErrorHandler;
 import org.eclipse.imp.preferences.PreferencesPlugin;
 import org.eclipse.imp.prefspecs.builders.PrefspecsNature;
 import org.eclipse.imp.wizards.CodeServiceWizard;
-import org.eclipse.imp.wizards.ExtensionPointEnabler;
+import org.eclipse.imp.wizards.ExtensionEnabler;
 import org.eclipse.imp.wizards.ExtensionPointWizardPage;
 import org.eclipse.imp.wizards.WizardPageField;
 import org.eclipse.imp.wizards.WizardUtilities;
@@ -167,7 +167,7 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
         
         
         // Enable the extension for the initializer
-        ExtensionPointEnabler.enable(
+        ExtensionEnabler.enable(
             	fProject, "org.eclipse.core.runtime", "preferences",
             	new String[][] {
             			{ "initializer:class", fPagePackage + "." + fPageClassNameBase + "Initializer" },
