@@ -5,6 +5,7 @@ Bundle-SymbolicName: org.eclipse.imp.preferences;singleton:=true
 Bundle-Version: 0.1.85
 Bundle-Activator: org.eclipse.imp.preferences.PreferencesPlugin
 Bundle-ActivationPolicy: lazy
+Eclipse-LazyStart: true
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
