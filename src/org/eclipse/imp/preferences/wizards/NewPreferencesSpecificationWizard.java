@@ -7,12 +7,8 @@
 *
 * Contributors:
 *    Robert Fuhrer (rfuhrer@watson.ibm.com) - initial API and implementation
-
 *******************************************************************************/
 
-/**
- * 
- */
 package org.eclipse.imp.preferences.wizards;
 
 import java.io.ByteArrayInputStream;
@@ -44,10 +40,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
-	
-
 public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
-	
 	protected String fPreferencesPackage;
 	protected String fTemplate;	
 	protected String fFileName;
@@ -61,8 +54,7 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
 
     // This is actually the problem id for the prefs spec compiler
 	public static final String PREFERENCES_ID = "org.eclipse.imp.preferences.problem";
-	
-	
+
 	public void addPages() {
 	    addPages(new ExtensionPointWizardPage[] { new NewPreferencesSpecificationWizardPage(this) } );
 	}
@@ -72,11 +64,7 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
 		    "org.eclipse.imp.runtime" });
 	}
 
-	
-    protected void collectCodeParms()
-    {
-    	//super.collectCodeParms();
-    	
+    protected void collectCodeParms() {
 		ExtensionPointWizardPage page= (ExtensionPointWizardPage) pages[0];
     	
 		WizardPageField field = null;
@@ -152,31 +140,16 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
         if (lastIndex >= 0 && lastIndex < templateNameForCreatingFile.length())
         	templateNameForCreatingFile = templateNameForCreatingFile.substring(lastIndex+1);
 
-//        IFile fieldSpecsFile = fProject.getFile(fieldSpecsLocation);
-//        PreferencesPageInfo pageInfo = prefspecsCompiler.compile(fieldSpecsFile, new NullProgressMonitor());
-//        String constantsClassName = fFullClassName + "Constants";
-//        String initializerClassName = fFullClassName + "Initializer";
-//
-//		ISourceProject sourceProject = null;
-//    	try {
-//    		sourceProject = ModelFactory.open(fProject);
-//    	} catch (ModelException me){
-//            System.err.println("NewPreferencesSpecificationWizard.generateCodeStubs(..):  Model exception:\n" + me.getMessage() + "\nReturning without parsing");
-//            return;
-//    	}
-        
-        
         // Enable the extension for the initializer
         ExtensionEnabler.enable(
             	fProject, "org.eclipse.core.runtime", "preferences",
             	new String[][] {
             			{ "initializer:class", fPagePackage + "." + fPageClassNameBase + "Initializer" },
-                	    },
+           	    },
         		false,
         		getPluginDependencies(),
         		mon);
-        
-        
+
         IFile prefSpecsSpec = WizardUtilities.createFileFromTemplate(
         	fFileName, PreferencesPlugin.PREFERENCES_PLUGIN_ID, templateNameForCreatingFile, fPagePackage, getProjectSourceLocation(fProject), subs, fProject, mon);
         
@@ -184,48 +157,6 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
 
         new PrefspecsNature().addToProject(fProject);
 	}
-	
-	
-    /**
-     * Creates a file of the given name from the named template in the given location in the
-     * given project. Subjects the template's contents to meta-variable substitution.
-     * 
-     * SMS 4 Aug 2007:  Copied and adapted from ExtensionPointWizard, where the original
-     * has a couple of features specific to Java files (use of project source location and
-     * formatting of Java source).
-     * 
-     * @param fileName
-     * @param templateName
-     * @param folder
-     * @param replacements a Map of meta-variable substitutions to apply to the template
-     * @param project
-     * @param monitor
-     * @return a handle to the file created
-     * @throws CoreException
-     */
-//    protected IFile createFileFromTemplate(
-//    	String fileName, String templateName, String folder, Map replacements,
-//	    IProject project, IProgressMonitor monitor)
-//    throws CoreException
-//	{
-//		monitor.setTaskName("NewPreferencesSpecificationWizard.createFileFromTemplate:  Creating " + fileName);
-//	
-//		String packagePath = getProjectSourceLocation() + fPagePackage.replace('.', '/');
-//		IPath specFilePath = new Path(packagePath + "/" + fFileName);
-//		final IFile file= project.getFile(specFilePath);
-//
-//		String templateContents= new String(getTemplateFile(templateName));
-//		String contents= performSubstitutions(templateContents, replacements);
-//	
-//		if (file.exists()) {
-//		    file.setContents(new ByteArrayInputStream(contents.getBytes()), true, true, monitor);
-//		} else {
-//		    createSubFolders(packagePath, project, monitor);
-//		    file.create(new ByteArrayInputStream(contents.getBytes()), true, monitor);
-//		}
-//	//	monitor.worked(1);
-//		return file;
-//    }
 
 	/*
 	 * TODO:
@@ -234,9 +165,7 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
 	 * - Define some constants to represent the constant strings that
 	 *   may be used here (e.g., for the file name extension).
 	 */
-   	protected void writeOutGenerationParameters()
-   		throws CoreException
-   	{
+   	protected void writeOutGenerationParameters() throws CoreException {
    		String contents =
    			"PagePackage=" + fPagePackage + "\n" +
    			"PageClassNameBase=" + fPageClassNameBase + "\n" +
@@ -257,10 +186,8 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
 		    WizardUtilities.createSubFolders(packagePath, fProject	, mon);
 		    file.create(new ByteArrayInputStream(contents.getBytes()), true, mon);
 		}
-   		
    	}
-	
-	
+
     /**
      * This method is called when 'Finish' button is pressed in the wizard.
      * We will create an operation and run it using wizard as execution context.
@@ -279,24 +206,24 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
 	   	
 		IRunnableWithProgress op= new IRunnableWithProgress() {
 		    public void run(IProgressMonitor monitor) throws InvocationTargetException {
-			IWorkspaceRunnable wsop= new IWorkspaceRunnable() {
-			    public void run(IProgressMonitor monitor) throws CoreException {
-				try {
-					generateCodeStubs(new NullProgressMonitor());
-				   	writeOutGenerationParameters();
-				   	new PrefspecsNature().addToProject(fProject);
-				} catch (Exception e) {
-					ErrorHandler.reportError("NewPreferencesSpecificationWizard.performFinish():  Error adding extension or generating code", e);
-				} finally {
-					monitor.done();
-				}
-			    }
-			};
-			try {
-			    ResourcesPlugin.getWorkspace().run(wsop, monitor);
-			} catch (Exception e) {
-			    ErrorHandler.reportError("Could not add extension points", e);
-			}
+		        IWorkspaceRunnable wsop= new IWorkspaceRunnable() {
+		            public void run(IProgressMonitor monitor) throws CoreException {
+		                try {
+		                    generateCodeStubs(new NullProgressMonitor());
+		                    writeOutGenerationParameters();
+		                    new PrefspecsNature().addToProject(fProject);
+		                } catch (Exception e) {
+		                    ErrorHandler.reportError("NewPreferencesSpecificationWizard.performFinish():  Error adding extension or generating code", e);
+		                } finally {
+		                    monitor.done();
+		                }
+		            }
+		        };
+		        try {
+		            ResourcesPlugin.getWorkspace().run(wsop, monitor);
+		        } catch (Exception e) {
+		            ErrorHandler.reportError("Could not add extension points", e);
+		        }
 		    }
 		};
 		try {
@@ -308,27 +235,10 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
 		} catch (InterruptedException e) {
 		    return false;
 		}
-		
-		//postReminderAboutPreferencesInitializer();
-		
+
 		return true;	
 	}
-    
-	
-//	protected void	postReminderAboutPreferencesInitializer()
-//	{
-//	   	String message = "REMINDER:  Update the plugin file for language to call the new preferences initializer\n";
-//	   	message = message + "to initialize default preferences:  " + fInitializerFileName;
-//		Shell parent = this.getShell();
-//		MessageBox messageBox = new MessageBox(parent, (SWT.OK));
-//		messageBox.setMessage(message);
-//		int result = messageBox.open();
-//	}
 
-	
-	/**
-	 * 
-	 */
 	protected boolean checkFieldConsistency() {
 		// does template file exist as a file?
 		File templateFile = new File(fTemplate);
@@ -339,8 +249,7 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
 		
 		return true;
 	}
-	
-	
+
 	protected boolean postErrorMessage(String msg) {
 		Shell parent = this.getShell();
 		MessageBox messageBox = new MessageBox(parent, (SWT.CANCEL));
@@ -349,8 +258,7 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
 		//if (result == SWT.CANCEL)
 		return false;
 	}
-	
-	
+
    /**
      * Return the names of any existing files that would be clobbered by the
      * new files to be generated.
@@ -358,35 +266,32 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
      * @return	An array of names of existing files that would be clobbered by
      * 			the new files to be generated
      */
-	   protected String[] getFilesThatCouldBeClobbered() {
-			String packagePath = getProjectSourceLocation(fProject) + fPagePackage.replace('.', '/');
-			IPath specFilePath = new Path(packagePath + "/" + fFileName);
-			final IFile file= fProject.getFile(specFilePath);
-			if (file.exists()) {
-				return new String[] { file.getLocation().toString() } ;
-			} else {
-				return new String[] { };
-			}
+	protected String[] getFilesThatCouldBeClobbered() {
+	    String packagePath = getProjectSourceLocation(fProject) + fPagePackage.replace('.', '/');
+	    IPath specFilePath = new Path(packagePath + "/" + fFileName);
+	    final IFile file= fProject.getFile(specFilePath);
+	    if (file.exists()) {
+	        return new String[] { file.getLocation().toString() } ;
+	    } else {
+	        return new String[] { };
 	    }
- 
-	
-	   
-	   /**
-	     * Refreshes all resources in the entire project tree containing the given resource.
-	     * Crude but effective.
-	     * Copied from BuilderBase, where it's not static, and probably wouldn't belong
-	     * if it were.  Should probably put into a utility somewhere.
-	     */
-	    protected void doRefresh(final IResource resource) {
-	        new Thread() {
-	            public void run() {
-	        	try {
-	        	    resource.getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
+	}
+
+	/**
+	 * Refreshes all resources in the entire project tree containing the given resource.
+	 * Crude but effective.
+	 * Copied from BuilderBase, where it's not static, and probably wouldn't belong
+	 * if it were.  Should probably put into a utility somewhere.
+	 */
+	protected void doRefresh(final IResource resource) {
+	    new Thread() {
+	        public void run() {
+	            try {
+	                resource.getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
 	        	} catch (CoreException e) {
 	        	    e.printStackTrace();
 	        	}
-	            }
-	        }.start();
-	    }
-
+	        }
+	    }.start();
+	}
 }
