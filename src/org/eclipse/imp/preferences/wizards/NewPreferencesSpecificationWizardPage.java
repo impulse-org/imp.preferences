@@ -7,11 +7,9 @@
 *
 * Contributors:
 *    Robert Fuhrer (rfuhrer@watson.ibm.com) - initial API and implementation
-
 *******************************************************************************/
 
 package org.eclipse.imp.preferences.wizards;
-
 
 import java.io.IOException;
 
@@ -29,20 +27,13 @@ import org.eclipse.pde.core.plugin.IPluginElement;
 import org.eclipse.pde.core.plugin.IPluginExtension;
 import org.eclipse.pde.core.plugin.IPluginModel;
 import org.eclipse.pde.core.plugin.IPluginObject;
-import org.eclipse.pde.internal.core.schema.Schema;
 import org.eclipse.swt.widgets.Composite;
 import org.osgi.framework.Bundle;
 
-/**
+public class NewPreferencesSpecificationWizardPage extends ExtensionPointWizardPage {
+    protected String fLanguageName = null;	
 
- */
-public class NewPreferencesSpecificationWizardPage extends ExtensionPointWizardPage
-{
-	
-	protected String fLanguageName = null;	
-	
-	
- 	 NewPreferencesSpecificationWizardPage(ExtensionPointWizard owner) {
+    NewPreferencesSpecificationWizardPage(ExtensionPointWizard owner) {
  		 // The "false" value provided at the end of the parameters
  		 // controls whether fields for extension name and id are shown
  		 // in the wizard--the parameter is "omitIDName", so "false"
@@ -51,30 +42,21 @@ public class NewPreferencesSpecificationWizardPage extends ExtensionPointWizardP
  		 super(owner, RuntimePlugin.IMP_RUNTIME, "preferencesSpecification", true, true);
     }
 
-
- 	 /**
- 	  * Create the other controls, then use the language name
- 	  * to set a default value for the (preferences menu) cagetory
- 	  * under which the new preferences dialog should appear.
- 	  */
-    public void createControl(Composite parent)
-    {
+    /**
+     * Create the other controls, then use the language name
+     * to set a default value for the (preferences menu) cagetory
+     * under which the new preferences dialog should appear.
+     */
+    public void createControl(Composite parent) {
 		super.createControl(parent);
 
 		setLanguageIfEmpty();
-		
 		setTemplateIfEmpty();
-		
 		//setFolderIfEmpty();
-		
 		setFileNameIfEmpty();
-		
 		setPagePackageIfEmpty();
-		
 		setPageClassNameBaseIfEmpty();
-		
 		setPageNameIfEmpty();
-		
 		setPageIdIfEmpty();
 		
 		// Don't set category if empty, because the most
@@ -82,17 +64,14 @@ public class NewPreferencesSpecificationWizardPage extends ExtensionPointWizardP
 		// no category (i.e., a top-level item)
     }
 
-    
     // Originally copied from package org.eclipse.imp...NewUIDEParserWizardPage
     // Now may duplicate method in NewLanguageSupportWizardPage
     
-    public String determineLanguage()
-    {
+    public String determineLanguage() {
 		if (fLanguageName != null)
 			return fLanguageName;
 		
 		try {
-    		// SMS 9 Oct 2007
     		IProject project = null;
         	if (fProject != null)
         		project = fProject;
@@ -131,7 +110,6 @@ public class NewPreferencesSpecificationWizardPage extends ExtensionPointWizardP
 		return "";
     }
 
-    	
     protected void setLanguageIfEmpty() {
         try {
             String pluginLang= determineLanguage(); // if a languageDesc exists
@@ -146,8 +124,7 @@ public class NewPreferencesSpecificationWizardPage extends ExtensionPointWizardP
             ErrorHandler.reportError("NewPreferencesSpecificationWizardPage.setLanguageIfEmpty():  Cannot set 'language' field", e);
         }
     }
-    
-    
+
     protected void setTemplateIfEmpty() {
         try {
             WizardPageField field= getField("template");
@@ -161,8 +138,7 @@ public class NewPreferencesSpecificationWizardPage extends ExtensionPointWizardP
             ErrorHandler.reportError("NewPreferencesSpecificationWizardPage.setTemplateIfEmpty():  Cannot set 'template' field", e);
         }
     }
-    
-    
+
 //    protected void setFolderIfEmpty() {
 //        try {
 //
@@ -183,8 +159,7 @@ public class NewPreferencesSpecificationWizardPage extends ExtensionPointWizardP
 //            ErrorHandler.reportError("NewPreferencesSpecificationWizardPage.setFolderIfEmpty():  Cannot set 'folder' field", e);
 //        }
 //    }
-    
-    
+
     protected void setFileNameIfEmpty() {
         try {
 
@@ -204,8 +179,7 @@ public class NewPreferencesSpecificationWizardPage extends ExtensionPointWizardP
             ErrorHandler.reportError("NewPreferencesSpecificationWizardPage.setFileNameIfEmpty():  Cannot set 'fileName' field", e);
         }
     }
-    
-    
+
     protected void setPagePackageIfEmpty() {
         try {
             WizardPageField field= getField("pagePackage");
@@ -222,8 +196,7 @@ public class NewPreferencesSpecificationWizardPage extends ExtensionPointWizardP
             ErrorHandler.reportError("NewPreferencesSpecificationWizardPage.setPagePackageIfEmpty	():  Cannot set 'pageName' field", e);
         }
     }
-    
-    
+
     protected void setPageClassNameBaseIfEmpty() {
         try {
             WizardPageField field= getField("pageClassNameBase");
@@ -241,8 +214,7 @@ public class NewPreferencesSpecificationWizardPage extends ExtensionPointWizardP
             ErrorHandler.reportError("NewPreferencesSpecificationWizardPage.setPageClassNameBaseIfEmpty	():  Cannot set 'pageName' field", e);
         }
     }
-    
-    
+
     // SMS 4 Aug 2007:  The prefspecs language currently requires the name
     // of a prefspecs specification to be an identifier instead of an
     // arbitrary string (and for now it seems easiest to use the specification
@@ -266,8 +238,7 @@ public class NewPreferencesSpecificationWizardPage extends ExtensionPointWizardP
             ErrorHandler.reportError("NewPreferencesSpecificationWizardPage.setPageNameIfEmpty():  Cannot set 'pageName' field", e);
         }
     }
-    
-    
+
     protected void setPageIdIfEmpty() {
         try {
             WizardPageField field= getField("pageId");
@@ -283,9 +254,7 @@ public class NewPreferencesSpecificationWizardPage extends ExtensionPointWizardP
             ErrorHandler.reportError("NewPreferencesSpecificationWizardPage.setPageNameIfEmpty():  Cannot set 'pageName' field", e);
         }
     }
-    
-    
-    
+
     public static String getTemplatesPath() {
     	Bundle bundle= Platform.getBundle(PreferencesPlugin.PREFERENCES_PLUGIN_ID);
     	try {
@@ -300,8 +269,7 @@ public class NewPreferencesSpecificationWizardPage extends ExtensionPointWizardP
     	    return null;
     	}
     }
-    
-    
+
     /**
      * Overrides the default version of this method so as to do nothing, i.e.,
      * so as to not actually create the template field for this wizard page.
@@ -310,10 +278,4 @@ public class NewPreferencesSpecificationWizardPage extends ExtensionPointWizardP
 	public WizardPageField createTemplateBrowseField(Composite parent, String componentID) {
 		return null;
 	}
-	
-	
-    protected Schema getSchema() {
-    	return fSchema;
-    }
-    
 }
