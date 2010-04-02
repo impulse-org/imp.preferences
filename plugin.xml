@@ -5,7 +5,7 @@
          point="org.eclipse.ui.newWizards">
 
       <wizard
-            category="org.eclipse.imp.wizards/org.eclipse.imp.wizards.create"
+            category="org.eclipse.imp.wizards/org.eclipse.imp.wizards.core"
             class="org.eclipse.imp.preferences.wizards.NewPreferencesSpecificationWizard"
             icon="icons/sample.gif"
             id="org.eclipse.imp.wizards.NewPreferencesSpecification"
