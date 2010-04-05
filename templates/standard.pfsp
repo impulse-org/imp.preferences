@@ -37,7 +37,9 @@ page $PREFS_PAGE_NAME$ {
     // TODO Customize the preference fields and their attributes
     fields {
         // START HERE
-        font SourceFont { defvalue "Courier New" 10 normal; }
+        font    sourceFont            { defvalue "Courier New" 10 normal; }
+        int     tabWidth              { defvalue 4; }
+        boolean spacesForTabs         { defvalue false; }
         boolean UseDefaultIncludePath { defvalue true; }
         dirlist IncludePathToUse {
             tooltip "A semicolon-separated list of folders to search for include files";
