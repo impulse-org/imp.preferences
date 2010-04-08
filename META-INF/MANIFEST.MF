@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: IMP Preferences Meta-tooling (Incubation)
 Bundle-SymbolicName: org.eclipse.imp.preferences;singleton:=true
-Bundle-Version: 0.1.88.qualifier
+Bundle-Version: 0.1.89.qualifier
 Bundle-Activator: org.eclipse.imp.preferences.PreferencesPlugin
 Bundle-ActivationPolicy: lazy
 Eclipse-LazyStart: true
