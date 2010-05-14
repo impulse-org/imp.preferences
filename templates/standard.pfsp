@@ -5,7 +5,7 @@
 // 
 package $PREFS_PACKAGE_NAME$;
 
-page $PREFS_PAGE_NAME$ {
+tabs {
     // There is one tab for each level of preference values:
     //  - "default" (as specified by "defvalue" attributes below)
     //  - "configuration" (shared by all Eclipse invocations from the same installation)
@@ -27,16 +27,16 @@ page $PREFS_PAGE_NAME$ {
     //
     // "in" tabs appear in the preference page; "out" tabs do not.
     // The following combination gives the "classic" Eclipse behavior.
-    tabs {
     	default out { }
     	configuration out { }
     	instance in {  }
     	project out { }
-    }
+}
 
+page $PREFS_PAGE_NAME$ {
     // TODO Customize the preference fields and their attributes
     fields {
-        // START HERE
+        // START_HERE
         font    sourceFont            { defvalue "Courier New" 10 normal; }
         int     tabWidth              { defvalue 4; }
         boolean spacesForTabs         { defvalue false; }

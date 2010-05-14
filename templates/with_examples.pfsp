@@ -30,7 +30,7 @@
 	
 page $PREFS_PAGE_NAME$ {
 
-    // START HERE
+    // START_HERE
     // Set tabs "in" or "out" as desired; fill in tab-level attributes
     // for fields
     tabs {

@@ -59,13 +59,13 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
 	    addPages(new ExtensionPointWizardPage[] { new NewPreferencesSpecificationWizardPage(this) } );
 	}
 
-	protected List getPluginDependencies() {
+	public List getPluginDependencies() {
 	    return Arrays.asList(new String[] { "org.eclipse.core.runtime", "org.eclipse.core.resources",
 		    "org.eclipse.imp.runtime" });
 	}
 
     protected void collectCodeParms() {
-		ExtensionPointWizardPage page= (ExtensionPointWizardPage) pages[0];
+		ExtensionPointWizardPage page= (ExtensionPointWizardPage) fIMPPages[0];
     	
 		WizardPageField field = null;
 		
@@ -150,10 +150,10 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
         		getPluginDependencies(),
         		mon);
 
-        IFile prefSpecsSpec = WizardUtilities.createFileFromTemplate(
+        IFile prefsSpecFile = WizardUtilities.createFileFromTemplate(
         	fFileName, PreferencesPlugin.PREFERENCES_PLUGIN_ID, templateNameForCreatingFile, fPagePackage, getProjectSourceLocation(fProject), subs, fProject, mon);
         
-        editFile(mon, prefSpecsSpec);
+        editFile(mon, prefsSpecFile);
 
         new PrefspecsNature().addToProject(fProject);
 	}
@@ -210,7 +210,7 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
 		            public void run(IProgressMonitor monitor) throws CoreException {
 		                try {
 		                    generateCodeStubs(new NullProgressMonitor());
-		                    writeOutGenerationParameters();
+//		                    writeOutGenerationParameters();
 		                    new PrefspecsNature().addToProject(fProject);
 		                } catch (Exception e) {
 		                    ErrorHandler.reportError("NewPreferencesSpecificationWizard.performFinish():  Error adding extension or generating code", e);
