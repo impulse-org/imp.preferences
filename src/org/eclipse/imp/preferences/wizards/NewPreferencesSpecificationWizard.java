@@ -65,7 +65,7 @@ public class NewPreferencesSpecificationWizard extends CodeServiceWizard {
 	}
 
     protected void collectCodeParms() {
-		ExtensionPointWizardPage page= (ExtensionPointWizardPage) fIMPPages[0];
+		ExtensionPointWizardPage page= (ExtensionPointWizardPage) pages[0];
     	
 		WizardPageField field = null;
 		
